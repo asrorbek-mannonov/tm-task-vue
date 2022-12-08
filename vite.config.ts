@@ -23,6 +23,14 @@ export default defineConfig({
     },
   },
 
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "~/styles/_variables.scss";',
+      },
+    },
+  },
+
   plugins: [
     Preview(),
 
@@ -66,6 +74,7 @@ export default defineConfig({
       // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
+      directoryAsNamespace: true,
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
     }),

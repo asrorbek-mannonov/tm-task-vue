@@ -7,11 +7,19 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseButton: typeof import('./components/base/Button.vue')['default']
+    BaseInput: typeof import('./components/base/Input.vue')['default']
     README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheCounter: typeof import('./components/TheCounter.vue')['default']
     TheFooter: typeof import('./components/TheFooter.vue')['default']
     TheInput: typeof import('./components/TheInput.vue')['default']
+    TodoCard: typeof import('./components/todo/Card.vue')['default']
+    TodoCardActionButton: typeof import('./components/todo/CardActionButton.vue')['default']
+    TodoCardBody: typeof import('./components/todo/CardBody.vue')['default']
+    TodoCardStatus: typeof import('./components/todo/CardStatus.vue')['default']
+    TodoCreateForm: typeof import('./components/todo/CreateForm.vue')['default']
+    TodoList: typeof import('./components/todo/List.vue')['default']
   }
 }
