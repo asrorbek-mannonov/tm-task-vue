@@ -8,3 +8,40 @@ export interface ITodo {
   description: string
   completed: boolean
 }
+
+export interface ICategory {
+  id: number
+  title: string
+}
+
+export interface IProduct {
+  id: number
+  title: string
+  price: number
+  category: ICategory
+  description: string
+  image: string
+  rate: number
+  count: number
+}
+
+export interface IPageMeta {
+  currentPage: number
+  perPage: number
+  total: number
+  lastPage: number
+  hasPreviousPage: boolean
+  hasNextPage: boolean
+}
+export interface PaginatedResponse<T> {
+  data: T[]
+  meta: IPageMeta
+}
+
+export interface ProductsFilterOptions {
+  page: number
+  take: number
+  search?: string
+  orderBy?: string
+  order?: 'asc' | 'desc'
+}
