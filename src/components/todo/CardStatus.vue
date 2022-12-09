@@ -1,0 +1,15 @@
+<script lang="ts" setup>
+interface Props {
+  completed: boolean
+}
+defineProps<Props>()
+</script>
+
+<template>
+  <button class="todo-card__status">
+    <svg v-if="completed" width="24" height="17" viewBox="0 0 24 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20.8838" y="0.106934" width="3" height="20" transform="rotate(45 20.8838 0.106934)" fill="#FF4F5A" />
+      <rect y="7.12134" width="3" height="12" transform="rotate(-45 0 7.12134)" fill="#FF4F5A" />
+    </svg>
+  </button>
+</template>
