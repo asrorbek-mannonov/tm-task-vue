@@ -17,16 +17,27 @@ watch(() => filterOptions, (val) => {
   store.fetchProducts(val.value)
 }, { immediate: true, deep: true })
 
-const handleSearchChange = (val: string) => {
-  if (filterOptions.value.search !== val)
-    filterOptions.value.page = 1
-  filterOptions.value.search = val
-}
+watch(() => filterOptions.value.category_id, () => {
+  filterOptions.value.page = 1
+})
 </script>
 
 <template>
-  <div flex items-center justify-between font-sans-lato py-4>
-    <h2 font-bold text-32px leading-40px>
+  <div
+    md="flex flex-row"
+    items-center
+    justify-between
+    font-sans-lato
+    py-4
+    flex-col
+  >
+    <h2
+      font-bold
+      text-32px
+      leading-40px
+      md:text-left
+      text-center
+    >
       Products ({{ store.pagination.total }})
     </h2>
     <StoreCategories v-model="filterOptions.category_id" />
@@ -38,6 +49,8 @@ const handleSearchChange = (val: string) => {
     px-4
     py-2
     outline-none
+    md:w-auto
+    w-full
     focus:border-green-600
     placeholder="Search ..."
     :value="filterOptions.search"
@@ -45,5 +58,16 @@ const handleSearchChange = (val: string) => {
     @keyup.enter="handleSearchChange(($event.target as HTMLInputElement).value)"
   >
   <StoreProducts />
-  <BasePagination v-model="filterOptions.page" :total-visible="7" :length="store.pagination.lastPage" my-4 />
+  <div
+    flex
+    md:justify-start
+    justify-center
+  >
+    <BasePagination
+      v-model="filterOptions.page"
+      :total-visible="7"
+      :length="store.pagination.lastPage"
+      my-4
+    />
+  </div>
 </template>
