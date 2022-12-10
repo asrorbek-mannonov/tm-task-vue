@@ -38,10 +38,8 @@ export interface PaginatedResponse<T> {
   meta: IPageMeta
 }
 
-export interface ProductsFilterOptions {
+export interface IFilterOptions {
+  category_id?: number
+  search: string
   page: number
-  take: number
-  search?: string
-  orderBy?: string
-  order?: 'asc' | 'desc'
 }

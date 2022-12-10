@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { ICategory, IPageMeta, IProduct, PaginatedResponse } from '~/types'
+import type { ICategory, IFilterOptions, IPageMeta, IProduct, PaginatedResponse } from '~/types'
 import http from '~/utils/http'
 
 interface IState {
@@ -24,13 +24,14 @@ export const useProducts = defineStore('products', {
     },
   }),
   actions: {
-    async fetchProducts({ category_id, page }: { category_id?: number; page?: number }) {
+    async fetchProducts({ category_id, page, search }: IFilterOptions) {
       if (this.loading)
         return
       this.loading = true
       try {
         const { data: productsResponse } = await http.get<PaginatedResponse<IProduct>>('/products', {
           params: {
+            search,
             category_id,
             page,
           },

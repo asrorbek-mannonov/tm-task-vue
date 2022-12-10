@@ -1,28 +1,49 @@
 <script lang="ts" setup>
 import { useProducts } from '~/store/products'
+import type { IFilterOptions } from '~/types'
 
 const store = useProducts()
-const categoryId = ref<number | undefined>()
+const filterOptions = useLocalStorage<IFilterOptions>('store-filter-options', {
+  category_id: undefined,
+  search: '',
+  page: store.pagination.currentPage,
+})
+
 onMounted(() => {
   store.fetchCategories()
 })
 
-watch(categoryId, () => {
-  store.fetchProducts({ category_id: categoryId.value })
-}, { immediate: true })
+watch(() => filterOptions, (val) => {
+  store.fetchProducts(val.value)
+}, { immediate: true, deep: true })
 
-const handlePageChange = (newPageValue: number) => {
-  store.fetchProducts({ category_id: categoryId.value, page: newPageValue })
+const handleSearchChange = (val: string) => {
+  if (filterOptions.value.search !== val)
+    filterOptions.value.page = 1
+  filterOptions.value.search = val
 }
 </script>
 
 <template>
   <div flex items-center justify-between font-sans-lato py-4>
     <h2 font-bold text-32px leading-40px>
-      Products
+      Products ({{ store.pagination.total }})
     </h2>
-    <StoreCategories v-model="categoryId" />
+    <StoreCategories v-model="filterOptions.category_id" />
   </div>
+  <input
+    type="text"
+    border
+    border-green
+    px-4
+    py-2
+    outline-none
+    focus:border-green-600
+    placeholder="Search ..."
+    :value="filterOptions.search"
+    @keyup.esc="handleSearchChange('')"
+    @keyup.enter="handleSearchChange(($event.target as HTMLInputElement).value)"
+  >
   <StoreProducts />
-  <BasePagination :model-value="store.pagination.currentPage" :total-visible="7" :length="store.pagination.lastPage" my-4 @update:model-value="handlePageChange" />
+  <BasePagination v-model="filterOptions.page" :total-visible="7" :length="store.pagination.lastPage" my-4 />
 </template>
