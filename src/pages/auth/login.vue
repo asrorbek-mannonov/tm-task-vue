@@ -29,7 +29,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div min-h-full flex>
+  <div min-h-full flex font-sans-lato>
     <div w-full flex items-center justify-center class="login-page">
       <div flex-1 flex flex-col justify-center border border-gray-300 py-12 px-4 sm:px-6 lg:flex-none lg:px-12 xl:px-12>
         <div mx-auto w-full max-w-sm lg:w-96>
@@ -101,3 +101,8 @@ const handleLogin = async () => {
     </div>
   </div>
 </template>
+
+<route lang="yaml">
+meta:
+  public: true
+</route>

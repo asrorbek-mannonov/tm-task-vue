@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const store = useAuthStore()
 useHead({
   title: 'Vitesse',
   meta: [
@@ -15,6 +16,11 @@ useHead({
       href: computed(() => preferredDark.value ? '/favicon-dark.svg' : '/favicon.svg'),
     },
   ],
+})
+
+onMounted(() => {
+  if (localStorage.getItem('accessToken'))
+    store.fetchUserInfo()
 })
 </script>
 

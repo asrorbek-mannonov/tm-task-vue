@@ -11,6 +11,7 @@ export const useAuthStore = defineStore('auth', {
     user: {
       id: null,
       username: '',
+      fullname: '',
       password: '',
       status: false,
     },
@@ -38,9 +39,9 @@ export const useAuthStore = defineStore('auth', {
     },
     async fetchUserInfo() {
       try {
-        if (this.user.id !== -1)
+        if (this.user.id)
           return
-        const { data } = await http.post<IUser>('/auth/user')
+        const { data } = await http.get<IUser>('/auth/user')
         this.user = data
       }
       catch (e) {
