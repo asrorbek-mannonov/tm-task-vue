@@ -20,7 +20,7 @@ const handleLogin = async () => {
     router.push('/store')
   }
   catch (error: any) {
-    message.value = error?.response?.data?.message || 'Login yoki parol noto\'g\'ri kiritildi'
+    message.value = error?.response?.data?.message || 'Incorrect login or password'
   }
   finally {
     loading.value = false
@@ -43,10 +43,10 @@ const handleLogin = async () => {
             <div mt-6>
               <form space-y-6 @submit.prevent="handleLogin">
                 <div>
-                  <label for="username" block text-sm font-medium text-gray-700> Login </label>
+                  <label for="username" block text-sm font-medium text-gray-700> Username </label>
                   <div mt-1>
                     <input
-                      id="username" v-model="userInfo.username" name="username" placeholder="Login" type="text"
+                      id="username" v-model="userInfo.username" name="username" placeholder="Username" type="text"
                       autocomplete="username" appearance-none block w-full px-4 py-4 border border-gray-300 rounded-md
                       shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500
                       sm:text-sm @focus="message = ''"

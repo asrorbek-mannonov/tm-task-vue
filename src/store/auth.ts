@@ -21,12 +21,11 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(user: any) {
       try {
-        const { data } = await http.post<{ access_token: string }>('/api/sign-in', {
+        const { data } = await http.post<{ access_token: string }>('/auth/login', {
           username: user.username,
           password: user.password,
         })
         localStorage.setItem('accessToken', data.access_token)
-        location.reload()
         return Promise.resolve(data)
       }
       catch (error: any) {
@@ -41,7 +40,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         if (this.user.id !== -1)
           return
-        const { data } = await http.post<IUser>('/v1_0/user')
+        const { data } = await http.post<IUser>('/auth/user')
         this.user = data
       }
       catch (e) {
