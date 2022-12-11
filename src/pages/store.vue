@@ -2,6 +2,7 @@
 import { useProducts } from '~/store/products'
 import type { IFilterOptions } from '~/types'
 const store = useProducts()
+const authStore = useAuthStore()
 const router = useRouter()
 const filterOptions = useLocalStorage<IFilterOptions>('store-filter-options', {
   category_id: undefined,
@@ -50,9 +51,15 @@ const handleSearchChange = (val: string) => {
     </h2>
     <div flex items-center md:gap-8 gap-4 md:flex-row flex-col justify-center md:justify-end>
       <StoreCategories v-model="filterOptions.category_id" />
-      <button btn border text-18px @click="router.push('/auth/login')">
+      <button v-if="!authStore.getUser.id" btn border text-18px @click="router.push('/auth/login')">
         Login
       </button>
+      <div v-else flex items-center space-x-4 border border-green py-1 px-4 shadow rounded>
+        <div class="font-medium text-xl">
+          <div>{{ authStore.user.fullname }} </div>
+        </div>
+        <img w-10 h-10 src="/user-avatar.png" alt="user">
+      </div>
     </div>
   </div>
   <input

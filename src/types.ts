@@ -47,6 +47,7 @@ export interface IFilterOptions {
 export interface IUser {
   id: number | null
   username: string
+  fullname: string
   password?: string
   status?: boolean
 }
