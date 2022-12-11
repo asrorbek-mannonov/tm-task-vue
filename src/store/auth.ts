@@ -25,7 +25,7 @@ export const useAuthStore = defineStore('auth', {
           username: user.username,
           password: user.password,
         })
-        localStorage.setItem('accessToken', data.access_token)
+        window.localStorage.setItem('accessToken', data.access_token)
         return Promise.resolve(data)
       }
       catch (error: any) {
