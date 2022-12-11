@@ -43,3 +43,10 @@ export interface IFilterOptions {
   search: string
   page: number
 }
+
+export interface IUser {
+  id: number | null
+  username: string
+  password?: string
+  status?: boolean
+}

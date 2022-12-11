@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useProducts } from '~/store/products'
 import type { IFilterOptions } from '~/types'
-
 const store = useProducts()
+const router = useRouter()
 const filterOptions = useLocalStorage<IFilterOptions>('store-filter-options', {
   category_id: undefined,
   search: '',
@@ -20,6 +20,14 @@ watch(() => filterOptions, (val) => {
 watch(() => filterOptions.value.category_id, () => {
   filterOptions.value.page = 1
 })
+
+watch(() => filterOptions.value.search, () => {
+  filterOptions.value.page = 1
+})
+
+const handleSearchChange = (val: string) => {
+  filterOptions.value.search = val
+}
 </script>
 
 <template>
@@ -40,7 +48,12 @@ watch(() => filterOptions.value.category_id, () => {
     >
       Products ({{ store.pagination.total }})
     </h2>
-    <StoreCategories v-model="filterOptions.category_id" />
+    <div flex items-center md:gap-8 gap-4 md:flex-row flex-col justify-center md:justify-end>
+      <StoreCategories v-model="filterOptions.category_id" />
+      <button btn border text-18px @click="router.push('/auth/login')">
+        Login
+      </button>
+    </div>
   </div>
   <input
     type="text"
