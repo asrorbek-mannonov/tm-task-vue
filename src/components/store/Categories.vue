@@ -16,8 +16,8 @@ interface Emit {
 </script>
 
 <template>
-  <ul flex gap-x-30px>
-    <li text-16px leading-24px cursor-pointer :class="{ 'font-bold': !modelValue }" @click="emit('update:model-value', undefined)">
+  <ul md="flex flex-row" gap-x-30px flex-col>
+    <li md:text-left text-center text-16px leading-24px cursor-pointer :class="{ 'font-bold': !modelValue }" @click="emit('update:model-value', undefined)">
       All
     </li>
     <li
@@ -26,6 +26,8 @@ interface Emit {
       text-16px
       leading-24px
       cursor-pointer
+      md:text-left
+      text-center
       :class="{ 'font-bold': modelValue === category.id }"
       @click="emit('update:model-value', category.id)"
     >

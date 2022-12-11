@@ -20,7 +20,7 @@ defineProps<Props>()
       </h4>
       <StoreProductRating :rate="product.rate" :count="product.count" />
       <div flex justify-between items-center mt-10px>
-        <p font-bold text-20px color-green-7>
+        <p font-bold md:text-20px color-green-7 text-16px>
           ${{ product.price }}
         </p>
         <button btn>
